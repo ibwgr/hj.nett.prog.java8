@@ -7,7 +7,7 @@ public class MainAdresse {
 		Adresse[] adressen = new Adresse[10];
 		
 		Adresse adresse1 = new Adresse();
-		adresse1.setWohnort("Grüsch");
+		adresse1.setWohnort("GrÃ¼sch");
 		adresse1.setPostleitzahl(7214);
 		adresse1.setName("Paul Berger");
 		adresse1.setStrasse("Bahnhofstrasse");
@@ -42,7 +42,7 @@ public class MainAdresse {
 		
 		Person person1 = new Person();
 		person1.firstName ="Sepp";
-		person1.lastName = "Müller";
+		person1.lastName = "MÃ¼ller";
 	}
 
 }

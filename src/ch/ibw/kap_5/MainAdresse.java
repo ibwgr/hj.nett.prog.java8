@@ -41,7 +41,7 @@ public class MainAdresse {
 		}
 		
 		Person person1 = new Person();
-		person1.firstName ="Sepp";
+		person1.firstName ="Josef";
 		person1.lastName = "Müller";
 	}
 

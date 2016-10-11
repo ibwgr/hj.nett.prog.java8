@@ -1,4 +1,4 @@
-package ch.ibw.kap_9;
+package ch.ibw.kap_9.waehrung;
 
 /**
  * Created by Nett on 04.10.2016.

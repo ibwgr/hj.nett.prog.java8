@@ -1,8 +1,8 @@
-package ch.ibw.kap_9;
+package ch.ibw.kap_9.metallplatte;
 
 public class Metallplatte {
 	
-	/** Länge der Platte */
+	/** Lï¿½nge der Platte */
 	public double laenge;
 	
 	/** Breite der Platte */
@@ -13,7 +13,7 @@ public class Metallplatte {
 		this.breite = breite;
 	}
 	
-	/** Berechnet die Fläche der Platte */
+	/** Berechnet die Flï¿½che der Platte */
 	public double flaeche(){
 		return laenge * breite;
 	}

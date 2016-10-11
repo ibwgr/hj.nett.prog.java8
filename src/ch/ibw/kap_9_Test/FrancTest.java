@@ -1,6 +1,7 @@
 package ch.ibw.kap_9_Test;
 
-import ch.ibw.kap_9.*;
+import ch.ibw.kap_9.waehrung.Euro;
+import ch.ibw.kap_9.waehrung.Franc;
 import junit.framework.TestCase;
 import org.junit.Test;
 

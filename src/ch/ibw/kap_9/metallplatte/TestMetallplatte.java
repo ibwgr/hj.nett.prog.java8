@@ -1,6 +1,8 @@
-package ch.ibw.kap_9;
+package ch.ibw.kap_9.metallplatte;
 
 import Prog1Tools.IOTools;
+import ch.ibw.kap_9.metallplatte.GelochtePlatte;
+import ch.ibw.kap_9.metallplatte.Metallplatte;
 
 public class TestMetallplatte {
 	

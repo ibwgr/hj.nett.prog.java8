@@ -1,4 +1,6 @@
-package ch.ibw.kap_9;
+package ch.ibw.kap_9.waehrung;
+
+import ch.ibw.kap_9.waehrung.Euro;
 
 /**
  * Created by Nett on 04.10.2016.
@@ -17,5 +19,10 @@ public class Lire extends Euro {
 
     public double waehrungsBetrag(){
         return euroBetrag() * KURS;
+    }
+
+    @Override
+    public String toString() {
+        return "Betrag = " + waehrungsBetrag() + " Lire";
     }
 }

@@ -1,4 +1,4 @@
-package ch.ibw.kap_9;
+package ch.ibw.kap_9.metallplatte;
 
 public class GelochtePlatte extends Metallplatte {
 	

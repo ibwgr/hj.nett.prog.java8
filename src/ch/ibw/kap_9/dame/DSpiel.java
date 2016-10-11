@@ -1,4 +1,4 @@
-package ch.ibw.kap_9;
+package ch.ibw.kap_9.dame;
 import Prog1Tools.IOTools;;
 
 public class DSpiel {
@@ -10,10 +10,10 @@ public class DSpiel {
 		DameFigur beute = createDame();
 		Bildschirm.loeschen();
 		
-		System.out.println("Die Beute steht, positionieren Sie den Jäger");		
+		System.out.println("Die Beute steht, positionieren Sie den Jï¿½ger");		
 		DameFigur jaeger = createDame();
 		if (!jaeger.trifft(beute)) {
-			System.out.println("Die Beute-Figur steht woanders\nSie haben nun 10 Züge um die Beute zu treffen");
+			System.out.println("Die Beute-Figur steht woanders\nSie haben nun 10 Zï¿½ge um die Beute zu treffen");
 			do {
 				System.out.println("Bewegen Sie Ihre " + jaeger.toString());
 				char richtung = IOTools.readChar("Wollen Sie waagrecht(-), senkrecht(|)\n oder diagonale(/,\\) ziehen?");

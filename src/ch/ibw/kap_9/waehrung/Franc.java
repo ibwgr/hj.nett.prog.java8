@@ -1,9 +1,11 @@
-package ch.ibw.kap_9;
+package ch.ibw.kap_9.waehrung;
+
+import ch.ibw.kap_9.waehrung.Euro;
 
 /**
  * Created by Nett on 04.10.2016.
  */
-public class Franc extends  Euro {
+public class Franc extends Euro {
 
     public static final double KURS =  6.55957;
 

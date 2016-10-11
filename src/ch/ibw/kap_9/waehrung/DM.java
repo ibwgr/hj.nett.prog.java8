@@ -1,9 +1,9 @@
-package ch.ibw.kap_9;
+package ch.ibw.kap_9.waehrung;
 
 /**
  * Created by Nett on 04.10.2016.
  */
-public class DM extends  Euro {
+public class DM extends Euro {
 
     public static final double KURS =  1.95583;
 

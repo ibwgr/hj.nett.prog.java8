@@ -1,9 +1,9 @@
-package ch.ibw.kap_9;
+package ch.ibw.kap_9.waehrung;
 
 /**
  * Created by Nett on 04.10.2016.
  */
-public class Euro extends  Waehrung {
+public class Euro extends Waehrung {
 
     /** Ein Euro ist soviel Dollar wert */
     private static double euroDollarKurs = 1.31;
@@ -35,4 +35,8 @@ public class Euro extends  Waehrung {
         euroDollarKurs =Kurs;
     }
 
+    @Override
+    public String toString() {
+        return "Betrag = " + wert + " Euro";
+    }
 }

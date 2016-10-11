@@ -47,5 +47,15 @@ public class TestAbstract {
         }
 
         printKind(kind1);
+
+        printKind(new InterfaceBase() {
+            @Override
+            public void printName() {
+                System.out.println("Hallo aus anonymer Klasse");
+            }
+        });
+
+        printKind(new Kindklasse2());
+
     }
 }

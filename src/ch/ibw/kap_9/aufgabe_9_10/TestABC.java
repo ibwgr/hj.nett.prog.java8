@@ -1,4 +1,4 @@
-package ch.ibw.kap_9.Aufgabe_9_10;
+package ch.ibw.kap_9.aufgabe_9_10;
 
 /**
  * Created by Nett on 11.10.2016.

@@ -1,7 +1,7 @@
 package ch.ibw.kap_9_Test;
 
 import ch.ibw.kap_9.waehrung.Euro;
-import junit.framework.TestCase;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -10,29 +10,34 @@ import static org.junit.Assert.assertEquals;
 /**
  * Created by Nett on 07.10.2016.
  */
-public class EuroTest extends TestCase {
+public class EuroTest {
 
-    Euro euro = null;
     double inValue;
 
     @Before
     public void setUp() throws Exception {
-        euro = new Euro(100.00);
         inValue = 100.00;
     }
 
     @Test
-    public void testEuroBetrag() throws Exception {
+    public void EuroBetragInValueEqualsOutValue() {
 
+        Euro euro = MakeEuro();
         double outValue = euro.euroBetrag();
-        assertEquals(inValue,outValue,0);
+        Assert.assertEquals(inValue,outValue,0);
     }
 
     @Test
-    public void testDollarBetrag() throws Exception {
+    public void DollarBetragInEuroEqualsOutDollar() {
 
+        Euro euro = MakeEuro();
         double dollar = euro.dollarBetrag();
         assertEquals(inValue * euro.getEuroDollarKurs(),dollar, 0);
+    }
+
+    private static Euro MakeEuro(){
+
+        return new Euro(100.0);
     }
 
 }

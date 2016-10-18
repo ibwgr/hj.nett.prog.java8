@@ -1,6 +1,4 @@
-package ch.ibw.pizzastore;
-
-import ch.ibw.pizzastore.Zutaten.*;
+package ch.ibw.pizzaAbstract;
 
 /**
  * Created by Nett on 15.10.2016.
@@ -19,6 +17,11 @@ public class Zutat {
         return name;
     }
 
+    /**
+     * Berechnet den Nährwert in kcal pro 100 Gramm der instanzierten Zutat
+     *
+     * @return naehrwert
+     */
     public int getNaehrwert() {
 
         int naehrwert = 0;
@@ -50,6 +53,12 @@ public class Zutat {
         return  naehrwert;
     }
 
+
+    /**
+     * Gibt den Preis pro Portion der instanzierten Zutat zurück
+     *
+     * @return preis
+     */
     public double getPreis(){
 
         double preis = 0;

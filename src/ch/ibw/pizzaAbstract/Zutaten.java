@@ -1,4 +1,4 @@
-package ch.ibw.pizzastore;
+package ch.ibw.pizzaAbstract;
 
 /**
  * Created by Nett on 16.10.2016.

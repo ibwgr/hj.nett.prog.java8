@@ -1,7 +1,5 @@
-package ch.ibw.kap_9_Test;
+package ch.ibw.kap_9.waehrung;
 
-import ch.ibw.kap_9.waehrung.Euro;
-import ch.ibw.kap_9.waehrung.Franc;
 import org.junit.Assert;
 import org.junit.Test;
 

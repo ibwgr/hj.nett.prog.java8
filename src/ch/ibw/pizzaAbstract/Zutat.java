@@ -5,15 +5,19 @@ package ch.ibw.pizzaAbstract;
  */
 public class Zutat {
 
-    private Zutaten name;
+    private String name;
     private int gramm;
+    private int brennwert;
+    private double preis;
 
-    public Zutat(Zutaten name, int gramm) {
+    public Zutat(String name, int gramm, int brennwert, double preis) {
         this.name = name;
         this.gramm = gramm;
+        this.brennwert = brennwert;
+        this.preis = preis;
     }
 
-    public Zutaten getName() {
+    public String getName() {
         return name;
     }
 
@@ -22,37 +26,9 @@ public class Zutat {
      *
      * @return naehrwert
      */
-    public int getNaehrwert() {
-
-        int naehrwert = 0;
-        switch(name){
-            case TEIG:
-                naehrwert = gramm * 333 /100;
-                break;
-            case MOZZARELLA:
-                naehrwert =  gramm * 244 /100;
-                break;
-            case TOMATENSAUCE:
-                naehrwert = gramm * 20 / 100;
-                break;
-            case OLIVENOEL:
-                naehrwert = gramm * 819 /100;
-                break;
-            case SCHINKEN:
-                naehrwert = gramm * 145 / 100;
-                break;
-            case PILZ:
-                naehrwert = gramm * 60 / 100;
-                break;
-            case PEPERONI:
-                naehrwert = gramm * 40 / 100;
-                break;
-            case ARTISCHOCKEN:
-                naehrwert = gramm * 47 / 100;
-        }
-        return  naehrwert;
+    public int getBrennwert() {
+        return gramm * brennwert / 100;
     }
-
 
     /**
      * Gibt den Preis pro Portion der instanzierten Zutat zurück
@@ -60,33 +36,7 @@ public class Zutat {
      * @return preis
      */
     public double getPreis(){
-
-        double preis = 0;
-        switch(name){
-            case TEIG:
-                preis = 3.0;
-                break;
-            case MOZZARELLA:
-                preis =  2.5;
-                break;
-            case  TOMATENSAUCE:
-                preis = 1.2;
-                break;
-            case OLIVENOEL:
-                preis = 1.0;
-                break;
-            case SCHINKEN:
-                preis = 1.5;
-                break;
-            case PILZ:
-                preis = 1.2;
-                break;
-            case PEPERONI:
-                preis = 0.8;
-                break;
-            case ARTISCHOCKEN:
-                preis = 0.9;
-        }
-        return  preis;
+        return preis;
     }
+
 }

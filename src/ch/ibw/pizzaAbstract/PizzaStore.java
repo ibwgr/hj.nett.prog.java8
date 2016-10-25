@@ -1,5 +1,6 @@
 package ch.ibw.pizzaAbstract;
 
+import ch.ibw.PizzaDb.StartPizzaDb;
 import ch.ibw.pizzaInterface.IPizza;
 import ch.ibw.pizzaInterface.MargheritaInterface;
 import ch.ibw.pizzaInterface.NapolitanaInterface;
@@ -12,14 +13,14 @@ public class PizzaStore {
 
     public static void main(String[] args) {
 
-        Zutat z1 = new Zutat(Zutaten.TEIG, 200);
-        Zutat z2 = new Zutat(Zutaten.MOZZARELLA, 60);
-        Zutat z3 = new Zutat(Zutaten.TOMATENSAUCE, 100);
-        Zutat z4 = new Zutat(Zutaten.OLIVENOEL, 6);
-        Zutat z5 = new Zutat(Zutaten.SCHINKEN, 30);
-        Zutat z6 = new Zutat(Zutaten.PILZ, 15);
-        Zutat z7 = new Zutat(Zutaten.PEPERONI, 25);
-        Zutat z8 = new Zutat(Zutaten.ARTISCHOCKEN, 80);
+        Zutat z1 = new Zutat("Teig", 200, 333, 3.0);
+        Zutat z2 = new Zutat("Mozzarella", 60, 244, 2.5);
+        Zutat z3 = new Zutat("Tomatensauce", 100, 20, 1.2);
+        Zutat z4 = new Zutat("Olivenoel", 6, 819, 1.0);
+        Zutat z5 = new Zutat("Schinken", 30, 145, 1.5);
+        Zutat z6 = new Zutat("Pilz", 15, 60, 1.2);
+        Zutat z7 = new Zutat("Peperoni", 25, 40, 0.8);
+        Zutat z8 = new Zutat("Artischocken", 80, 47, 0.9);
 
         Zutat[] zutatenMargherita = new Zutat[]{z1,z2,z3,z4};
         Zutat[] zutatenNapolitana = new Zutat[]{z1,z2,z3,z4,z7};
@@ -52,6 +53,27 @@ public class PizzaStore {
 
         System.out.println();
         System.out.println("Pizzas mit Interface");
+
+        for(IPizza pizza : pizzasI){
+
+            String groesse = "";
+            if(pizza instanceof MargheritaInterface){
+                groesse = ((MargheritaInterface) pizza).getGroesse() + " ";
+            }
+            System.out.println("Eine " + groesse + pizza.getClass().getSimpleName() + " kostet " + pizza.getPreis() + " Fr. und hat " + pizza.getNaehrwert() + " kCal");
+        }
+
+        StartPizzaDb startPizzaDb = new StartPizzaDb();
+
+        IPizza margheritaDb = new MargheritaInterface(startPizzaDb.getZutaten("Margherita"), IPizza.GROSS);
+        IPizza margheritaKleinDb = new MargheritaInterface(startPizzaDb.getZutaten("Margherita"), IPizza.KLEIN);
+        IPizza quattroStagioneDb = new QuattroStagioniInterface(zutatenQuattroStagioni);
+        IPizza napolitanaDb = new NapolitanaInterface(startPizzaDb.getZutaten("Napolitana"));
+
+        IPizza[] pizzasDb = new IPizza[]{margheritaDb, margheritaKleinDb,quattroStagioneDb,napolitanaDb};
+
+        System.out.println();
+        System.out.println("Pizzas mit Zutaten aus DB");
 
         for(IPizza pizza : pizzasI){
 

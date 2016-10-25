@@ -31,7 +31,7 @@ public class QuattroStagioniInterface implements IPizza {
     public int getNaehrwert() {
         int naehrwert = 0;
         for(Zutat z : zutaten) {
-            naehrwert += z.getNaehrwert();
+            naehrwert += z.getBrennwert();
         }
         return  naehrwert;
     }

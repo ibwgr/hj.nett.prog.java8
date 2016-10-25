@@ -2,7 +2,12 @@ package ch.ibw.kap_14;
 
 import javax.swing.*;
 import javax.swing.border.Border;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 /**
  * Created by Nett on 08.10.2016.
@@ -10,18 +15,23 @@ import java.awt.*;
 public class FrameMitFarbigenLabel extends JFrame {
 
     private Container c;
+    private JLabel pictureLabel;
+    private JList zutatenliste;
 
     public FrameMitFarbigenLabel(){
-
         c = getContentPane();
         c.setLayout(new BorderLayout(5,5));
         setJMenuBar(createJMenuBar());
         c.add(createJLabelPanel(),BorderLayout.WEST);
         c.add(createJButtonPanel(), BorderLayout.NORTH);
         c.add(createDivButtonPanel(), BorderLayout.SOUTH);
-        c.add(createPictueLabel(), BorderLayout.CENTER);
-        c.add(createJListPanel(),BorderLayout.EAST);
+        //
+        pictureLabel = new JLabel("Zeit", new ImageIcon("C:\\Users\\Nett\\Documents\\IBW\\Neon\\ProgrammierenJava8\\src\\ch\\ibw\\kap_14\\uhr.png"), JLabel.CENTER);
+        pictureLabel.setHorizontalTextPosition(JLabel.CENTER);
+        pictureLabel.setVerticalTextPosition(JLabel.TOP);
+        c.add(pictureLabel, BorderLayout.CENTER);
 
+        c.add(createJListPanel(),BorderLayout.EAST);
     }
 
     private JPanel createJLabelPanel() {
@@ -64,8 +74,40 @@ public class FrameMitFarbigenLabel extends JFrame {
     private JPanel createJButtonPanel(){
         JPanel panel = new JPanel();
         JButton start = new JButton("Start");
+        start.addActionListener(new ActionListener() {
+            private boolean colored = false;
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(!colored) {
+                    pictureLabel.setIcon(new ImageIcon("C:\\Users\\Nett\\Documents\\IBW\\Neon\\ProgrammierenJava8\\src\\ch\\ibw\\kap_14\\SA551340.jpg"));
+                    pictureLabel.setText("Boinha");
+                    colored = true;
+                }else{
+                    pictureLabel.setIcon(new ImageIcon("C:\\Users\\Nett\\Documents\\IBW\\Neon\\ProgrammierenJava8\\src\\ch\\ibw\\kap_14\\SA551342.jpg"));
+                    pictureLabel.setText("Boim");
+                    colored = false;
+                }
+            }
+        });
         JButton stop = new JButton("Stop");
         JButton interval = new JButton("Interval");
+        interval.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ArrayList<String> zutaten = (ArrayList<String>) zutatenliste.getSelectedValuesList();
+                String zutatenliste = "";
+                for(String s : zutaten){
+                    zutatenliste += s + "\n";
+                }
+                JDialog dialog = new JDialog();
+                JLabel label = new JLabel();
+                label.setText(zutatenliste);
+                dialog.getContentPane().add(label);
+                dialog.setSize(200,300);
+                dialog.setLocation(300,300);
+                dialog.setVisible(true);
+            }
+        });
         panel.setLayout(new GridLayout(1,3));
         panel.add(start);
         panel.add(stop);
@@ -75,11 +117,8 @@ public class FrameMitFarbigenLabel extends JFrame {
     }
 
     private JLabel createPictueLabel(){
-        Icon uhr = new ImageIcon("C:\\Users\\Nett\\Documents\\IBW\\Neon\\ProgrammierenJava8\\src\\ch\\ibw\\kap_14\\uhr.png");
-        JLabel label = new JLabel("Zeit", uhr, JLabel.CENTER);
-        label.setHorizontalTextPosition(JLabel.CENTER);
-        label.setVerticalTextPosition(JLabel.TOP);
-        return  label;
+
+        return  pictureLabel;
     }
 
     private JPanel createDivButtonPanel(){
@@ -102,10 +141,11 @@ public class FrameMitFarbigenLabel extends JFrame {
 
     private JPanel createJListPanel(){
         JPanel panel = new JPanel();
-        panel.setLayout(new GridLayout(3,1));
+        panel.setLayout(new FlowLayout());
         panel.setPreferredSize(new Dimension(120,50));
         String[] namen = new String[]{"Meier","Müller","Berger"};
         JComboBox nachnamen = new JComboBox(namen);
+        nachnamen.setPreferredSize(new Dimension(100,25));
 
         JComboBox vornamen = new JComboBox();
         vornamen.addItem("Peter");
@@ -113,10 +153,10 @@ public class FrameMitFarbigenLabel extends JFrame {
         vornamen.addItem("Paul");
         vornamen.addItem("Eva");
 
-        String[]berufe = new String[]{"Bauer","Elektriker","Informatiker","Arzt","Kaufmann","Mechaniker","Lehrer","Programmierer"};
-        JList liste = new JList(berufe);
+        String[]produkte = new String[]{"Teig","Mozzarella","Tomaten","Pilz","Peperoni","Zwiebeln","Basilikum","Schinken"};
+        zutatenliste = new JList(produkte);
         JScrollPane listScrollPane = new JScrollPane();
-        listScrollPane.setViewportView(liste);
+        listScrollPane.setViewportView(zutatenliste);
 
         panel.add(vornamen);
         panel.add(nachnamen);

@@ -1,10 +1,7 @@
 package ch.ibw.pizzaAbstract;
 
-import ch.ibw.PizzaDb.StartPizzaDb;
-import ch.ibw.pizzaInterface.IPizza;
-import ch.ibw.pizzaInterface.MargheritaInterface;
-import ch.ibw.pizzaInterface.NapolitanaInterface;
-import ch.ibw.pizzaInterface.QuattroStagioniInterface;
+import ch.ibw.PizzaDb.DbConnection;
+import ch.ibw.pizzaInterface.*;
 
 /**
  * Created by Nett on 15.10.2016.
@@ -63,19 +60,23 @@ public class PizzaStore {
             System.out.println("Eine " + groesse + pizza.getClass().getSimpleName() + " kostet " + pizza.getPreis() + " Fr. und hat " + pizza.getNaehrwert() + " kCal");
         }
 
-        StartPizzaDb startPizzaDb = new StartPizzaDb();
 
-        IPizza margheritaDb = new MargheritaInterface(startPizzaDb.getZutaten("Margherita"), IPizza.GROSS);
-        IPizza margheritaKleinDb = new MargheritaInterface(startPizzaDb.getZutaten("Margherita"), IPizza.KLEIN);
+        /**
+         *  Verwaltung Pizzdetails in C:/Users/Nett/Documents/Pizza.accdb
+         */
+        DbConnection dbConn = new DbConnection("//C:/Users/Nett/Documents/Pizza.accdb");
+
+        IPizza margheritaDb = new MargheritaInterface(dbConn.selectRezeptDetails("Margherita"), IPizza.GROSS);
+        IPizza margheritaKleinDb = new MargheritaInterface(dbConn.selectRezeptDetails("Margherita"), IPizza.KLEIN);
         IPizza quattroStagioneDb = new QuattroStagioniInterface(zutatenQuattroStagioni);
-        IPizza napolitanaDb = new NapolitanaInterface(startPizzaDb.getZutaten("Napolitana"));
+        IPizza napolitanaDb = new NapolitanaInterface(dbConn.selectRezeptDetails("Napolitana"));
 
         IPizza[] pizzasDb = new IPizza[]{margheritaDb, margheritaKleinDb,quattroStagioneDb,napolitanaDb};
 
         System.out.println();
         System.out.println("Pizzas mit Zutaten aus DB");
 
-        for(IPizza pizza : pizzasI){
+        for(IPizza pizza : pizzasDb){
 
             String groesse = "";
             if(pizza instanceof MargheritaInterface){

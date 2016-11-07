@@ -14,7 +14,7 @@ public class EuroTest {
     double inValue;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         inValue = 100.00;
     }
 

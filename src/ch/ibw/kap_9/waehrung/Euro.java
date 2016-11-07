@@ -13,6 +13,7 @@ public class Euro extends Waehrung {
 
     /** Konstruktor */
     public Euro(double wert) {
+        super(5);
         this.wert=wert;
     }
 

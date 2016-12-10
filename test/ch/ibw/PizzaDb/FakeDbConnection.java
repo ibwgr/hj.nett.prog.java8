@@ -6,6 +6,12 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.sun.xml.internal.messaging.saaj.util.FinalArrayList;
+import org.mockito.Mockito;
+import com.mockrunner.mock.jdbc.MockResultSet;
 
 import static java.sql.DriverManager.getConnection;
 
@@ -13,76 +19,41 @@ import static java.sql.DriverManager.getConnection;
 /**
  * Created by Nett on 23.10.2016.
  */
-public class DbConnection {
+public class FakeDbConnection extends DbConnection {
 
    private String connStr = null;
     String message = "";
+    private Zutat[] zutatenMargherita = null;
 
-    public DbConnection(String connStr){
-        this.connStr = "jdbc:ucanaccess:" + connStr;
+    public FakeDbConnection(String connStr, Zutat[] zutaten){
+        super(connStr);
+        zutatenMargherita = zutaten;
     }
 
-    public Zutat[] selectRezeptDetails(String rezept) {
-
-        ResultSet res = getResultSet(rezept);
-        Zutat[] zutaten = null;
-
-        try {
-            res.last();
-            int rows = res.getRow();
-            // Move to beginning
-            res.beforeFirst();
-            zutaten = new Zutat[rows];
-
-            while (res.next()) {
-
-                int row = res.getRow();
-                String name = res.getString("ZutatName");
-                int gewicht = res.getInt("ZutatGewicht");
-                int brennwert = res.getInt("Brennwert");
-                double preis = res.getDouble("Preis");
-
-                zutaten[row - 1] = new Zutat(name, gewicht, brennwert, preis);
-            }
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        }
-        return zutaten;
-    }
-
+    @Override
     public ResultSet getResultSet(String rezept) {
-        String selectCmd = "SELECT Rezeptdetails.ZutatName, Zutat.ZutatGewicht, Produkt.Brennwert, Produkt.Preis "
-                + "FROM Rezeptdetails, Zutat, Produkt "
-                + "WHERE Rezeptdetails.ZutatName = Zutat.ZutatName "
-                + "AND Zutat.ProduktID =Produkt.ProduktID "
-                + "AND Rezeptdetails.RezeptName ='" + rezept + "'";
-        Connection con = null;
-        ResultSet res = null;
-        Statement s = null;
-        Zutat[] zutaten = null;
 
-        try {
-            con = getConnection(connStr, "", "");
-            s = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,
-                    ResultSet.CONCUR_READ_ONLY);
+        MockResultSet mockResultSet = new MockResultSet("myResultSet");
 
-            res = s.executeQuery(selectCmd);
+        String[] columns = new String[]{"ZutatName","ZutatGewicht","Brennwert","Preis"};
 
-        } catch (Exception e) {
-            System.out.println("" + e.getMessage());
-        } finally {
-            try {
-                if (s != null)
-                    s.close();
-                if (con != null)
-                    con.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
+        for(String column : columns) {
+            mockResultSet.addColumn(column);
         }
-        return res;
+
+        for(Zutat z : zutatenMargherita) {
+            List<Object> list = new ArrayList<Object>();
+            list.add(z.getName());
+            list.add(z.getGewicht());
+            list.add(z.getBrennwert());
+            list.add(z.getPreis());
+            mockResultSet.addRow(list);
+        }
+        return mockResultSet;
     }
 
+
+    @Override
     public String[] getAllProducts(){
 
         String selectCmd = "SELECT ProduktName FROM Produkt";
@@ -126,6 +97,7 @@ public class DbConnection {
         return products;
     }
 
+    @Override
     public String[] getRezepte(){
 
         String selectCmd = "SELECT RezeptName FROM Rezept";
@@ -170,6 +142,7 @@ public class DbConnection {
 
     }
 
+    @Override
     public void insertCommand(String command){
 
         Connection con = null;
@@ -183,8 +156,8 @@ public class DbConnection {
             s.executeUpdate(command);
 
         }catch (SQLException e){
+           message = e.getMessage();
 
-            message = e.getMessage();
         }finally {
             try {
                 if (s != null)
@@ -197,44 +170,5 @@ public class DbConnection {
             }
         }
 
-     }
-
-    public Zutat[] selectZutaten() {
-
-        String selectCmd = "SELECT ZutatName, ZutatGewicht FROM Zutat";
-        Connection con = null;
-        ResultSet res = null;
-        Statement s = null;
-        Zutat[] zutaten = null;
-
-        try {
-            con = getConnection(connStr, "", "");
-            s = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,
-                    ResultSet.CONCUR_READ_ONLY);
-
-            res = s.executeQuery(selectCmd);
-
-
-            res.last();
-            int rows = res.getRow();
-            // Move to beginning
-            res.beforeFirst();
-            zutaten = new Zutat[rows];
-
-            while (res.next()) {
-
-                int row = res.getRow();
-                String name = res.getString("ZutatName");
-                int gewicht = res.getInt("ZutatGewicht");
-                int brennwert = 100;
-                double preis = 1.0;
-
-                zutaten[row - 1] = new Zutat(name, gewicht, brennwert, preis);
-            }
-        } catch (SQLException ex) {
-            System.out.println("" + ex.getMessage());
-            ex.printStackTrace();
-        }
-        return zutaten;
     }
 }

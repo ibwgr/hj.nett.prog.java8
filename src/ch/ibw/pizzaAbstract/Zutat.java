@@ -21,6 +21,10 @@ public class Zutat {
         return name;
     }
 
+    public int getGewicht() {
+        return gramm;
+    }
+
     /**
      * Berechnet den Nährwert in kcal pro 100 Gramm der instanzierten Zutat
      *
@@ -39,4 +43,29 @@ public class Zutat {
         return preis;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Zutat zutat = (Zutat) o;
+
+        if (gramm != zutat.gramm) return false;
+        if (brennwert != zutat.brennwert) return false;
+        if (Double.compare(zutat.preis, preis) != 0) return false;
+        return name != null ? name.equals(zutat.name) : zutat.name == null;
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result;
+        long temp;
+        result = name != null ? name.hashCode() : 0;
+        result = 31 * result + gramm;
+        result = 31 * result + brennwert;
+        temp = Double.doubleToLongBits(preis);
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        return result;
+    }
 }
